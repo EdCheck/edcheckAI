@@ -69,7 +69,7 @@ async def paraphraser_sentiment_checker():
       if sentiment_analysis(pred)[0]['label'] == "POSITIVE":
         print(pred)
         return_array.append(pred)
-    return {"Negative", return_array}
+    return {"Negative", return_array[0:3]}
   else:
     print("The sentence has a positive sentiment. Good job!")
     return {"Positive", return_array}

@@ -1,4 +1,4 @@
-happytransformer
+sentencepiece
 fastapi
 celery
 uvicorn

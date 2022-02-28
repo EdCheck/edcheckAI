@@ -7,8 +7,15 @@ from pydantic import BaseModel
 
 from celery.result import AsyncResult
 
+
+from transformers import AutoModelWithLMHead, AutoTokenizer
+paraphrasing_tokenizer = AutoTokenizer.from_pretrained("mrm8488/t5-small-finetuned-quora-for-paraphrasing")
+paraphrasing_model = AutoModelWithLMHead.from_pretrained("mrm8488/t5-small-finetuned-quora-for-paraphrasing")
+from transformers import pipeline
+sentiment_analysis = pipeline("sentiment-analysis",model="siebert/sentiment-roberta-large-english")
+
 ####################################################
-class spelling_grammar_data:
+class text_data(BaseModel):
     text : str
 #####################################################
 
@@ -35,14 +42,34 @@ async def root():
     return "Welcome to EdCheck Backend API"
 
 
+def paraphrase(text, max_length=128):
 
-from happytransformer import HappyTextToText, TTSettings
-happy_tt = HappyTextToText("T5", "vennify/t5-base-grammar-correction")
-@router.post('/spelling-grammar/')
-async def spelling_grammar(data: spelling_grammar_data):
-    args = TTSettings(num_beams=5, min_length=1)
-    result = happy_tt.generate_text("grammar: " + data.text, args=args)
+  input_ids = paraphrasing_tokenizer.encode(text, return_tensors="pt", add_special_tokens=True)
 
-    return result.text
+  generated_ids = paraphrasing_model.generate(input_ids=input_ids, num_return_sequences=20, num_beams=20, max_length=max_length, no_repeat_ngram_size=2, repetition_penalty=3.5, length_penalty=1.0, early_stopping=True)
 
+  preds = [paraphrasing_tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=True) for g in generated_ids]
 
+  return preds
+
+@router.post('/paraphraser_sentiment_checker/')
+async def paraphraser_sentiment_checker():
+  return_array = []
+  text = data.text
+  print("Your input sentence: " + text)
+  print()
+  original_score = sentiment_analysis(text)[0]['score']
+
+  if sentiment_analysis(text)[0]['label'] == "NEGATIVE":
+    print("The sentence seems to have a negative sentiment")
+    print("Here are some alternatives:")
+    preds = paraphrase("paraphrase: " + text)
+
+    for pred in preds:
+      if sentiment_analysis(pred)[0]['label'] == "POSITIVE":
+        print(pred)
+        return_array.append(pred)
+    return {"Negative", return_array}
+  else:
+    print("The sentence has a positive sentiment. Good job!")
+    return {"Positive", return_array}

@@ -44,9 +44,9 @@ Use this endpoint in order to check if the app is able to connect with the API w
 
 To be used in the flutter app page where the tutor is able to interact with the student.
 
-a) As soon as the tutor stops typing, add a "Wait" statement for 1s.
-b) Split the response of the tutor from the text box at "." , "?", and "!"
-c) Call the API on each split response.
-d) If the sentiment for any of the sentence is "Negative", highlight the sentence in the textbox with a red color on the frontend.
-e) If the cursor is placed on any of the highlighted sentences, display the sentences from the array in the output in the Suggestions box on the frontend.
+a) As soon as the tutor stops typing, add a "Wait" statement for 1s.\n
+b) Split the response of the tutor from the text box at "." , "?", and "!"\n
+c) Call the API on each split response.\n
+d) If the sentiment for any of the sentence is "Negative", highlight the sentence in the textbox with a red color on the frontend.\n
+e) If the cursor is placed on any of the highlighted sentences, display the sentences from the array in the output in the Suggestions box on the frontend.\n
 f) If the tutor clicks on any of the sentences in the Suggestions box, replace the original highlighted sentence with the new sentence that was just clicked.

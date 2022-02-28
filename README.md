@@ -1,7 +1,5 @@
 # EdCheckAI API doc and usage
 
-## #########################################
-
 # Endpoints:
 
 ## 1) Root endpoint:

@@ -56,22 +56,23 @@ def paraphrase(text, max_length=128):
 async def paraphraser_sentiment_checker(data:text_data):
   return_array = []
   text = data.text
-  print("Your input sentence: " + text)
-  print()
-  original_score = sentiment_analysis(text)[0]['score']
+  return text
+#   print("Your input sentence: " + text)
+#   print()
+#   original_score = sentiment_analysis(text)[0]['score']
 
-  if sentiment_analysis(text)[0]['label'] == "NEGATIVE":
-    print("The sentence seems to have a negative sentiment")
-    print("Here are some alternatives:")
-    preds = paraphrase("paraphrase: " + text)
+#   if sentiment_analysis(text)[0]['label'] == "NEGATIVE":
+#     print("The sentence seems to have a negative sentiment")
+#     print("Here are some alternatives:")
+#     preds = paraphrase("paraphrase: " + text)
 
-    for pred in preds:
-      if sentiment_analysis(pred)[0]['label'] == "POSITIVE":
-        print(pred)
-        return_array.append(pred)
-    return {"Negative", return_array[:3]}
-  else:
-    print("The sentence has a positive sentiment. Good job!")
-    return {"Positive", return_array}
+#     for pred in preds:
+#       if sentiment_analysis(pred)[0]['label'] == "POSITIVE":
+#         print(pred)
+#         return_array.append(pred)
+#     return {"Negative", return_array[:3]}
+#   else:
+#     print("The sentence has a positive sentiment. Good job!")
+#     return {"Positive", return_array}
 
 

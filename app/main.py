@@ -52,8 +52,8 @@ def paraphrase(text, max_length=128):
 
   return preds
 
-@router.post('/paraphraser_sentiment_checker/')
-async def paraphraser_sentiment_checker(data:text_data):
+@router.get('/paraphraser_sentiment_checker/')
+async def paraphraser_sentiment_checker():
   return "hello world"
 #   print("Your input sentence: " + text)
 #   print()

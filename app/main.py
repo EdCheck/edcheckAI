@@ -54,9 +54,7 @@ def paraphrase(text, max_length=128):
 
 @router.post('/paraphraser_sentiment_checker/')
 async def paraphraser_sentiment_checker(data:text_data):
-  return_array = []
-  text = data.text
-  return text
+  return "hello world"
 #   print("Your input sentence: " + text)
 #   print()
 #   original_score = sentiment_analysis(text)[0]['score']

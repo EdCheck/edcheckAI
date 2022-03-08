@@ -75,6 +75,7 @@ async def paraphraser_sentiment_checker(data: text_data):
         return_array.append(pred)
     return {"Negative", return_array[:3]}
   else:
+    return "positive"
     return {"Positive", return_array}
 
 

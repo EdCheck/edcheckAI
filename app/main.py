@@ -65,17 +65,16 @@ async def test_post(data: text_data):
 async def paraphraser_sentiment_checker(data: text_data):
   text = data.text
   original_score = sentiment_analysis(text)[0]['score']
-
+    
+  return_array = []
   if sentiment_analysis(text)[0]['label'] == "NEGATIVE":
     preds = paraphrase("paraphrase: " + text)
 
     for pred in preds:
       if sentiment_analysis(pred)[0]['label'] == "POSITIVE":
-        return_array.append(pred)
-    return "Negative"
+        return_array.append(str(pred))
     return ["Negative", return_array[:3]]
   else:
-    return "Positive"
     return ["Positive", return_array]
 
 

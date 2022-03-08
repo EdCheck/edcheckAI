@@ -56,11 +56,6 @@ async def root():
 
 
 
-@router.post('/testpost/')
-async def test_post(data: text_data):
-    return ['test1', ['a','b','c']]
-
-
 @router.post('/paraphraser_sentiment_checker/')
 async def paraphraser_sentiment_checker(data: text_data):
   text = data.text

@@ -75,7 +75,6 @@ async def paraphraser_sentiment_checker(data: text_data):
         return_array.append(pred)
     return {"Negative", return_array[:3]}
   else:
-    print("The sentence has a positive sentiment. Good job!")
     return {"Positive", return_array}
 
 

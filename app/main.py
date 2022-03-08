@@ -65,20 +65,13 @@ async def test_post(data: text_data):
 @router.post('/paraphraser_sentiment_checker/')
 async def paraphraser_sentiment_checker(data: text_data):
   text = data.text
-  
-
   original_score = sentiment_analysis(text)[0]['score']
-  
-  return original_score
 
   if sentiment_analysis(text)[0]['label'] == "NEGATIVE":
-    print("The sentence seems to have a negative sentiment")
-    print("Here are some alternatives:")
     preds = paraphrase("paraphrase: " + text)
 
     for pred in preds:
       if sentiment_analysis(pred)[0]['label'] == "POSITIVE":
-        print(pred)
         return_array.append(pred)
     return {"Negative", return_array[:3]}
   else:

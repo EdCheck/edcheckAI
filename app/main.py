@@ -34,14 +34,6 @@ def create_app() -> CORSMiddleware:
     )
 
 
-app = create_app()
-
-
-@router.get('/')
-async def root():
-    return "Welcome to EdCheck Backend API"
-
-
 def paraphrase(text, max_length=128):
 
   input_ids = paraphrasing_tokenizer.encode(text, return_tensors="pt", add_special_tokens=True)
@@ -51,6 +43,23 @@ def paraphrase(text, max_length=128):
   preds = [paraphrasing_tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=True) for g in generated_ids]
 
   return preds
+
+
+
+
+app = create_app()
+
+
+@router.get('/')
+async def root():
+    return "Welcome to EdCheck Backend API"
+
+
+
+@router.post('/testpost/')
+async def test_post(data: text_data):
+    return "Testing 1 2 3"
+
 
 @router.post('/paraphraser_sentiment_checker/')
 async def paraphraser_sentiment_checker(data: text_data):
